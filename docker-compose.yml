@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    env_file: .env
+    volumes:
+       - /var/lib/postgresql/data
+  web:
+    build: .
+    volumes:
+      - ./src:/app
+    ports:
+      - 8078:80
+    env_file: .env
+    depends_on:
+      - db
+    entrypoint:
+    - /app/docker-entrypoint.sh
+    container_name: golden-greyhound

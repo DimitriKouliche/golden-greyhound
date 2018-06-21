@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block clue %}
+  <!--
+  You don't need to be a true hacker to read some source code. This time the answer is pretty well hidden
+  -->
+{% endblock %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block style %}
+  <link href="{% static "/css/error.min.css" %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block body_class %} page-500-full-page{% endblock %}
+{% block background %}https://res.cloudinary.com/john-paul/image/upload/v1527238514/golden-greyhound/invisible.jpg{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12 page-500">
+      <div class="number font-red"><i class="fa fa-arrow-circle-o-down" title="Valider"></i></div>
+      <br>
+      <div class="text-center">
+        <h3>Il ne faut pas se fier aux apparences</h3>
+        <div class="col-md-6 col-md-offset-3">
+          <form method="POST">{% csrf_token %}
+            <div class="form-group form-md-line-input">
+              <input required="required" name="answer" type="text" class="form-control" id="form_control_1"
+                     placeholder="Entre ici ta réponse">
+              <span class="help-block">“Tout ce qui se manifeste est vision de l'invisible.”</span>
+            </div>
+            <button type="submit" class="btn red btn-outline">Valider</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if error %}
+    <div class="error-clue">
+      La réponse est plus proche que tu ne le penses.
+    </div>
+  {% endif %}
+  <div class="answer-invisible">
+    Pour continuer, entre la locution latine "de visu".
+  </div>
+{% endblock %}

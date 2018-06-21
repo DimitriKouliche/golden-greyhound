@@ -1,0 +1,82 @@
+.help-block {
+  color: white !important;
+}
+
+.answer-disclaimer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  color: white;
+  font-size: 10px;
+}
+
+h3 {
+  color: white;
+  margin: 80px 0;
+}
+
+html, body {
+  color: white;
+}
+
+.btn {
+  margin-top: 50px;
+}
+
+.answer-invisible {
+  text-align: center;
+  opacity: 0.25;
+  color: gray;
+  margin-top: 30px;
+}
+
+.error-clue {
+  text-align: center;
+  color: red;
+  margin-top: 30px;
+}
+
+.unicorn {
+  position: absolute;
+  transition: all 1s;
+  width: 200px;
+  height: auto;
+  top: 40vh;
+  left: 40vw;
+  cursor: crosshair;;
+  transform: rotateY(180deg);
+}
+
+.unicorn-disclaimer {
+  text-align: center;
+  margin: 30vh auto;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
+  pointer-events: none;
+  user-select: none;
+}
+
+.score {
+  position: absolute;
+  top:5px;
+  right:5px;
+  display:inline-block;
+  color: white;
+  width:80px;
+  height:80px;
+  line-height:75px;
+  text-align: center;
+  border: solid white;
+  font-size:32px;
+  font-weight: bold;
+  border-radius:50%;
+  pointer-events: none;
+  user-select: none;
+}
+
+#world {
+  position: absolute;
+}
+
+.black-text{
+  color:black !important;
+}

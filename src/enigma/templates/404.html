@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block style %}
+  <link href="{% static "/css/error.min.css" %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block body_class %} page-500-full-page{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12 page-500">
+      <div class="number font-red">Bien essayé</div>
+      <br>
+      <div class="text-center col-md-6 col-md-offset-3">
+        <h3 class="spaced">Malheureusement cette page n'existe pas.</h3>
+        <p>Pour ta persévérance voici un indice : dans le code source de toutes les pages se trouve une explication sur
+          comment cracker les URL de ce jeu. Si tu n'es pas un développeur tu auras plus de chances en jouant au jeu
+          normalement.</p><br><br>
+        <a href="/enigma/?key=Bv9KHeK0HfIF-REsVqvjUw.." class="btn red btn-outline">Retourner à la premère énigme</a>
+      </div>
+    </div>
+  </div>
+  <div class="answer-disclaimer">
+    Pour continuer, entre le nom "Jeeves".
+  </div>
+{% endblock %}

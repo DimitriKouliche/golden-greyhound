@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block clue %}
+  <!--
+  Actually you don't really need to hack this one. However it will be easier for a developer to find where to search.
+  -->
+{% endblock %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block style %}
+  <link href="{% static "/css/error.min.css" %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block body_class %} page-500-full-page{% endblock %}
+{% block background %}https://res.cloudinary.com/john-paul/image/upload/v1527238514/golden-greyhound/kmi.png{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12 page-500">
+      <div class="number font-red countdown">Recherche KMI</div>
+      <br>
+      <div class="text-center">
+        <div class="col-md-6 col-md-offset-3">
+          <h3>La tant attendue recherche KMI</h3>
+          <p>En allant sur la KMI, on peut à présent faire une recherche générale sur la base de connaissance.
+            Comme la feature n'a pas été développée conventionnellement, elle est cachée et il faut cliquer quelque part
+            sur l'interface pour y accéder (elle est présente sur toutes les pages).
+            Pour continuer, recherche le mot clé "enigma" et lis les documents retournés par la recherche. Un d'entre
+            eux héberge la clé nécessaire pour continuer.
+          </p>
+          <form method="POST">{% csrf_token %}
+            <div class="form-group form-md-line-input">
+              <input required="required" name="answer" type="text" class="form-control" id="form_control_1"
+                     placeholder="Entre ici la clé pour passer à l'étape suivante">
+              <span class="help-block">Le bouton "rechercher" étant trop long à développer, il faut appuyer sur entrée pour lancer la recherche</span>
+            </div>
+            <button type="submit" class="btn red btn-outline">Valider</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if error %}
+    <div class="error-clue">
+      La recherche KMI se trouve près du logo John Paul.
+    </div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% block clue %}
+  <!--
+  In order to hack this step, you can always program a bot to speak to my bot.
+  If you do that please send me a screenshot of the conversation.
+  -->
+{% endblock %}
+
+{% block style %}
+  <link href="{% static "/css/error.min.css" %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block body_class %} page-500-full-page{% endblock %}
+{% block background %}https://res.cloudinary.com/john-paul/image/upload/v1527238514/golden-greyhound/chatbot.jpg{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12 page-500">
+      <div class="number font-red countdown">Jeeves</div>
+      <br>
+      <div class="text-center">
+        <div class="col-md-6 col-md-offset-3">
+        <h3 class="black-text">Il existe sur le slack de John Paul un chatbot clandestin</h3>
+        <p class="black-text">Son nom est la réponse à la première question (le titre de cette étape), on peut le trouver en recherchant son nom dans les messages privés. Il n'est pas très doué pour traiter les demandes de
+          conciergerie mais lui seul à la réponse à cette énigme. Attention, il est très têtu, ne parle qu'en anglais et il ne faut pas hésiter
+          à insister pour obtenir une réponse.</p>
+          <form method="POST">{% csrf_token %}
+            <div class="form-group form-md-line-input">
+              <input required="required" name="answer" type="text" class="form-control" id="form_control_1"
+                     placeholder="Entre ici la clé pour passer à l'étape suivante">
+              <span class="help-block black-text">Essaie de lui dire "I want to eat sushi in Paris"</span>
+            </div>
+            <button type="submit" class="btn red btn-outline">Valider</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if error %}
+    <div class="error-clue">
+      Ce chatbot n'étant pas très intelligent, il a tendance à souvent répéter les mêmes choses. Pas le choix, il faut le harceler.
+    </div>
+  {% endif %}
+{% endblock %}

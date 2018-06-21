@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block clue %}
+  <!--
+  There are several ways to hack through this one. My favorite solution involves making the time pass faster. Any good
+  javascript developer would be able to complete this step in less than 1 minute.
+  You have 2 hours to find a cool way to avoid waiting for 2 hours.
+  -->
+{% endblock %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block style %}
+  <link href="{% static "/css/error.min.css" %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block body_class %} page-500-full-page{% endblock %}
+{% block background %}https://res.cloudinary.com/john-paul/image/upload/v1527238514/golden-greyhound/patience.jpg{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12 page-500">
+      <div class="number font-red countdown">02:00:00</div>
+      <br>
+      <div class="text-center">
+        <h3 class="black-text">Patience est mère de vertu</h3>
+        <div class="col-md-6 col-md-offset-3">
+          <form method="POST">{% csrf_token %}
+            <div class="form-group form-md-line-input">
+              <input required="required" name="answer" type="text" class="form-control" id="form_control_1"
+                     placeholder="Le mot de passe s'affichera à la fin du décompte">
+              <span class="help-block">Chez John Paul, il faut parfois savoir prendre son mal en patience.</span>
+            </div>
+            <button type="submit" class="btn red btn-outline">Valider</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if error %}
+    <div class="error-clue">
+      Si tu es pressé, tu peux peut-être deviner la réponse ?
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    $(document).ready(function () {
+      var time = 7200;
+      var key = "";
+      var seed = 0;
+      var interval = setInterval(function () {
+        var hours = pad(Math.floor((time % (60 * 60 * 24)) / (60 * 60)), 2);
+        var minutes = pad(Math.floor((time % (60 * 60)) / (60)), 2);
+        var seconds = pad(Math.floor((time % (60))), 2);
+        seed = parseInt(minutes) + parseInt(seconds) + parseInt(hours);
+        if (seconds % 7 === 0) {
+          key += String.fromCharCode(97 + seed % 25);
+        }
+        if ((seed * parseInt(seconds)) % 13 === 0 && key.length > 5) {
+          key = key.substring(0, key.length - (parseInt(seconds) % 3));
+        }
+        $('.countdown').text(hours + ":" + minutes + ":" + seconds);
+        if (time === 0) {
+          $('.countdown').text(key.substring(key.length - 10, key.length - 4));
+          clearInterval(interval);
+        }
+        time--;
+        if (time % 20 === 0) {
+          console.log("Computing key... Here's the current one: " + key);
+        }
+      }, 1000);
+    });
+
+    function pad(n, width, z) {
+      z = z || '0';
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
+  </script>
+{% endblock %}

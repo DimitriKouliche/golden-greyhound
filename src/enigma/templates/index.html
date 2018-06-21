@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block clue %}
+  <!--
+  You don't need to be a true hacker to read some source code. Even if in this case the answer is pretty obvious
+  -->
+{% endblock %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block style %}
+  <link href="{% static "/css/error.min.css" %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block body_class %} page-500-full-page{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-12 page-500">
+      <div class="number font-red">Bienvenue</div>
+      <br>
+      <div class="text-center">
+        <h3>Pour commencer, entre ton nom* :</h3>
+        <div class="col-md-6 col-md-offset-3">
+          <form method="POST">{% csrf_token %}
+            <div class="form-group form-md-line-input">
+              <input required="required" name="answer" type="text" class="form-control" id="form_control_1"
+                     placeholder="Clique ici et tape ton nom">
+              <span class="help-block">Si tu as un doute, n'hésite pas à consulter ta carte d'identité</span>
+            </div>
+            <button type="submit" class="btn red btn-outline">Valider</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if error %}
+    <div class="error-clue">
+      Désolé, tu n'as pas le niveau pour participer
+    </div>
+  {% endif %}
+  <div class="answer-disclaimer">
+    *Pour continuer, entre le nom "Jeeves".
+  </div>
+{% endblock %}

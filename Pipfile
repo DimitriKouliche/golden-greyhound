@@ -1,0 +1,18 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+django = {version = ">=1.11,<2.0"}
+requests = ">2"
+"psycopg2-binary" = ">2"
+whitenoise = "*"
+
+
+[dev-packages]
+
+pytest-django = "*"

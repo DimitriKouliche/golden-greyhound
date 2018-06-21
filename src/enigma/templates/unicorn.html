@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block clue %}
+  <!--
+  You don't have to be a hacker to find a fast solution to complete this trial, you just need to think outside the box.
+  A javascript developer would need less than a minute to complete this using the browser native console.
+  -->
+{% endblock %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block style %}
+  <link href="{% static "/css/error.min.css" %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block body_class %} page-500-full-page{% endblock %}
+{% block background %}https://res.cloudinary.com/john-paul/image/upload/v1527238514/golden-greyhound/unicorn.jpg{% endblock %}
+
+{% block content %}
+  <h1 class="unicorn-disclaimer">Clique 200 fois sur la licorne pour continuer.</h1>
+  <img draggable="false" class="unicorn" src="{% static "/img/unicorn.png" %}"/>
+  <div class="score">0</div>
+  <form class="enigma" method="POST">{% csrf_token %}
+    <input id="answer" type="hidden" name="answer"/>
+  </form>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    $(document).ready(function () {
+      var top, left;
+      var score = 0;
+      var width = 200;
+      var key = "";
+      var seed = 0;
+      var windowHeight = window.innerHeight;
+      var windowWidth = window.innerWidth;
+      $('.unicorn').on("click", function () {
+        $('.unicorn').css('transform', 'rotateY(' + (score % 2) * 180 + 'deg)');
+        score++;
+        $('.score').text(score);
+        if (score % 10 === 0) {
+          width -= 7;
+          $('.unicorn').css('width', width + 'px');
+        }
+        if (score >= 200) {
+          key = key.substring(key.length - 10, key.length - 4);
+          clearInterval(interval);
+          $('#answer').val(key);
+          $('.unicorn').off();
+          $('.enigma').submit();
+        }
+        seed = (score + width) * (score - width);
+        if (score % 2 === 0) {
+          key += String.fromCharCode(97 + seed % 25);
+        }
+        if (seed % 3 === 0) {
+          key = key.substring(0, key.length - (seed % 3));
+        }
+      });
+      var interval = setInterval(function () {
+        windowHeight = window.innerHeight;
+        windowWidth = window.innerWidth;
+        top = randomRange(0, windowHeight - width);
+        left = randomRange(0, windowWidth - width);
+        $('.unicorn').css({
+          top: top + "px",
+          left: left + "px",
+        })
+      }, 1100);
+    });
+
+    function randomRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+  </script>
+{% endblock %}
